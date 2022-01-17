@@ -5,3 +5,8 @@
 .content {
     min-height: calc(100vh - 105px - 71px);
 }
+.movies {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
