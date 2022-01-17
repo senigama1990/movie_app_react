@@ -1,5 +1,7 @@
 import React from 'react'
+import Loader from '../components/Loader'
 import Movies from '../components/Movies'
+import Search from '../components/Search'
 
 class Main extends React.Component {
 
@@ -8,15 +10,22 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://www.omdbapi.com/?apikey=329ffa13&s=panda')
+    fetch(`http://www.omdbapi.com/?apikey=329ffa13&s=panda`)
       .then(response => response.json())
       .then(data => this.setState({ movies: data.Search}))
+  }
+
+  searchMovie = (str) => {
+    fetch(`http://www.omdbapi.com/?apikey=329ffa13&s=${str}`)
+      .then(response => response.json())
+      .then(data => this.setState({ movies: data.Search }))
   }
 
   render() {
     return (
       <div className='container content'>
-        {this.state.movies.length ? (<Movies movies={this.state.movies} />) : <h1>Loading...</h1>}
+        <Search searchMovie={ this.searchMovie}/>
+        {this.state.movies.length ? (<Movies movies={this.state.movies} />) : <Loader/>}
       </div>
     )
   }
